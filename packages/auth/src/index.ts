@@ -10,9 +10,6 @@ export function initAuth(options: {
   baseUrl: string;
   productionUrl: string;
   secret: string | undefined;
-
-  discordClientId: string;
-  discordClientSecret: string;
 }) {
   const config = {
     database: drizzleAdapter(db, {
@@ -30,13 +27,7 @@ export function initAuth(options: {
       }),
       expo(),
     ],
-    socialProviders: {
-      discord: {
-        clientId: options.discordClientId,
-        clientSecret: options.discordClientSecret,
-        redirectURI: `${options.productionUrl}/api/auth/callback/discord`,
-      },
-    },
+    socialProviders: {},
     trustedOrigins: ["expo://"],
   } satisfies BetterAuthOptions;
 
