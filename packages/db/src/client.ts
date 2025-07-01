@@ -1,10 +1,16 @@
-import { sql } from "@vercel/postgres";
-import { drizzle } from "drizzle-orm/vercel-postgres";
+import { Pool } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-serverless";
 
 import * as schema from "./schema";
 
+if (!process.env.POSTGRES_URL) {
+  throw new Error("Missing POSTGRES_URL");
+}
+
+const pool = new Pool({ connectionString: process.env.POSTGRES_URL });
+
 export const db = drizzle({
-  client: sql,
+  client: pool,
   schema,
   casing: "snake_case",
 });
