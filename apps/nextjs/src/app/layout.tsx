@@ -17,18 +17,15 @@ export const metadata: Metadata = {
       ? "https://turbo.t3.gg"
       : "http://localhost:3000",
   ),
-  title: "Create T3 Turbo",
-  description: "Simple monorepo with shared backend for web & mobile apps",
+  title: "Nexuss ERP",
+  description:
+    "ERP solution for educational institutions to avoid manual way of handling the academic informations.",
   openGraph: {
-    title: "Create T3 Turbo",
-    description: "Simple monorepo with shared backend for web & mobile apps",
+    title: "Nexuss ERP",
+    description:
+      "ERP solution for educational institutions to avoid manual way of handling the academic informations.",
     url: "https://create-t3-turbo.vercel.app",
-    siteName: "Create T3 Turbo",
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@jullerino",
-    creator: "@jullerino",
+    siteName: "Nexuss ERP",
   },
 };
 
