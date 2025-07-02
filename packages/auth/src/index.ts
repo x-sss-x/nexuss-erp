@@ -40,7 +40,7 @@ export function initAuth(options: {
       google: {
         clientId: options.googleClientId,
         clientSecret: options.googleClientSecret,
-        redirectURI: `${options.productionUrl}/api/auth/callback/google`,
+        redirectURI: `${options.baseUrl}/api/auth/callback/google`,
       },
     },
     trustedOrigins: ["expo://"],
