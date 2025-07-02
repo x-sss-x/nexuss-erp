@@ -10,6 +10,9 @@ export function initAuth(options: {
   baseUrl: string;
   productionUrl: string;
   secret: string | undefined;
+
+  googleClientId: string;
+  googleClientSecret: string;
 }) {
   const config = {
     database: drizzleAdapter(db, {
@@ -17,6 +20,12 @@ export function initAuth(options: {
     }),
     baseURL: options.baseUrl,
     secret: options.secret,
+    emailAndPassword: {
+      enabled: true,
+      async sendResetPassword(data, request) {
+        // Send an email to the user with a link to reset their password
+      },
+    },
     plugins: [
       oAuthProxy({
         /**
@@ -27,7 +36,13 @@ export function initAuth(options: {
       }),
       expo(),
     ],
-    socialProviders: {},
+    socialProviders: {
+      google: {
+        clientId: options.googleClientId,
+        clientSecret: options.googleClientSecret,
+        redirectURI: `${options.productionUrl}/api/auth/callback/google`,
+      },
+    },
     trustedOrigins: ["expo://"],
   } satisfies BetterAuthOptions;
 
