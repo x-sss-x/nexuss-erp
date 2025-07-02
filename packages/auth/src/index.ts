@@ -15,23 +15,18 @@ export function initAuth(options: {
   googleClientSecret: string;
 }) {
   const config = {
-    database: drizzleAdapter(db, {
-      provider: "pg",
-    }),
+    database: drizzleAdapter(db, { provider: "pg" }),
     baseURL: options.baseUrl,
     secret: options.secret,
     emailAndPassword: {
       enabled: true,
       async sendResetPassword(data, request) {
-        // Send an email to the user with a link to reset their password
+        // email logic
       },
     },
     plugins: [
       organization(),
       oAuthProxy({
-        /**
-         * Auto-inference blocked by https://github.com/better-auth/better-auth/pull/2891
-         */
         currentURL: options.baseUrl,
         productionURL: options.productionUrl,
       }),
