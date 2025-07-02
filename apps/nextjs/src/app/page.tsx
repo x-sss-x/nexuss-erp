@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import Spline from "@splinetool/react-spline/next";
 
 import { Button } from "@nxss/ui/button";
@@ -31,9 +32,12 @@ export default function HomePage() {
           </p>
           <div className="space-x-2.5">
             <Button size={"lg"}>Get Started</Button>
-            <Button variant={"secondary"} size={"lg"}>
-              Sign in
-            </Button>
+
+            <Link href={"/sign-in"}>
+              <Button variant={"secondary"} size={"lg"}>
+                Sign in
+              </Button>
+            </Link>
           </div>
         </div>
         <Spline scene="https://prod.spline.design/EvWngk-QnczF24xr/scene.splinecode" />
