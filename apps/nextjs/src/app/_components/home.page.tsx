@@ -25,10 +25,12 @@ export default function HomePage() {
           Nexus ERP trims the clutter and delivers only what matters—beautifully
           and intuitively.
         </p>
-        <div className="space-x-2.5">
-          <Button size={"xl"} className="rounded-full">
-            Sign Up
-          </Button>
+        <div className="space-x-2.5 pt-4">
+          <Link href={"/sign-up"}>
+            <Button size={"xl"} className="rounded-full">
+              Sign Up
+            </Button>
+          </Link>
 
           <Link href={"/sign-in"}>
             <Button variant={"outline"} className="rounded-full" size={"xl"}>
