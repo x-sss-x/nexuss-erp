@@ -8,6 +8,7 @@ import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { cn } from "@nxss/ui";
 import { Button } from "@nxss/ui/button";
 import {
   Card,
@@ -26,7 +27,6 @@ import {
   FormMessage,
 } from "@nxss/ui/form";
 import { Input } from "@nxss/ui/input";
-import { cn } from "@nxss/ui/lib/utils";
 import { toast } from "@nxss/ui/toast";
 
 import { authClient } from "~/auth/client";

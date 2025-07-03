@@ -3,8 +3,12 @@
   "compilerOptions": {
     "lib": ["ES2022", "dom", "dom.iterable"],
     "jsx": "preserve",
-    "rootDir": "."
+    "rootDir": ".",
+    "paths": {
+      "@nxss/ui/*": ["./src/*"]
+    }
   },
+
   "include": ["src/**/*.ts*", "scripts/**/*.ts"],
   "exclude": ["node_modules"]
 }

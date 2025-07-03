@@ -4,7 +4,7 @@ import * as React from "react";
 import { CheckIcon, ChevronRightIcon, DotIcon } from "lucide-react";
 import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui";
 
-import { cn } from ".";
+import { cn } from "@nxss/ui";
 
 export const DropdownMenu = DropdownMenuPrimitive.Root;
 export const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
