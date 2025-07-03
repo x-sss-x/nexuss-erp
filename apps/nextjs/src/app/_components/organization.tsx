@@ -41,6 +41,7 @@ export function Organization() {
 
   const slug = form.watch().slug;
 
+  /** Check if slug is exists already or not --> with interval to avoid continous fetch calls */
   const checkSlug = useDebouncedCallback(async (slug: string) => {
     await organization.checkSlug(
       { slug },
