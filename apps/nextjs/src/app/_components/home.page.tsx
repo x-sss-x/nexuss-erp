@@ -26,11 +26,13 @@ export default function HomePage() {
           and intuitively.
         </p>
         <div className="space-x-2.5">
-          <Button size={"lg"}>Get Started</Button>
+          <Button size={"xl"} className="rounded-full">
+            Sign Up
+          </Button>
 
           <Link href={"/sign-in"}>
-            <Button variant={"secondary"} size={"lg"}>
-              Sign in
+            <Button variant={"outline"} className="rounded-full" size={"xl"}>
+              Sign In
             </Button>
           </Link>
         </div>
