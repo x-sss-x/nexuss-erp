@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Outfit } from "next/font/google";
 
 import { cn } from "@nxss/ui";
 import { ThemeProvider, ThemeToggle } from "@nxss/ui/theme";
@@ -36,7 +36,7 @@ export const viewport: Viewport = {
   ],
 };
 
-const geistSans = Geist({
+const geistSans = Outfit({
   subsets: ["latin"],
   variable: "--font-geist-sans",
 });

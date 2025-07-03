@@ -52,7 +52,7 @@ export function SignUp() {
 
   async function onSubmit(values: z.infer<typeof singUpSchema>) {
     await signUp.email(values, {
-      onResponse: () => {
+      onSuccess: () => {
         router.refresh();
       },
       onError(context) {

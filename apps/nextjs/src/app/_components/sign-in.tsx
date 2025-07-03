@@ -50,7 +50,7 @@ export function SignIn() {
 
   async function onSubmit(values: z.infer<typeof signInSchema>) {
     await signIn.email(values, {
-      onResponse: () => {
+      onSuccess: () => {
         router.refresh();
       },
       onError(context) {
@@ -178,6 +178,7 @@ export function SignIn() {
               type="submit"
               className="w-full"
               variant="outline"
+              disabled={loading}
               loading={form.formState.isSubmitting}
             >
               Sign In
