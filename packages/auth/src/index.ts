@@ -24,6 +24,16 @@ export function initAuth(options: {
         // email logic
       },
     },
+    user: {
+      additionalFields: {
+        /** User's onboarding completion */
+        onboardingComplete: {
+          type: "boolean",
+          required: false,
+          defaultValue: false,
+        },
+      },
+    },
     plugins: [
       organization(),
       oAuthProxy({
