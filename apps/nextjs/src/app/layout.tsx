@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
-import { cn } from "@nxss/ui";
+import { cn } from "@nxss/ui/lib/utils";
 import { ThemeProvider, ThemeToggle } from "@nxss/ui/theme";
 import { Toaster } from "@nxss/ui/toast";
 

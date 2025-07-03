@@ -37,7 +37,7 @@ export default function HomePage() {
           </Link>
         </div>
       </div>
-      <Spline scene="https://prod.spline.design/EvWngk-QnczF24xr/scene.splinecode" />
+      <Spline scene="/cloner-hair.spline" />
     </main>
   );
 }

@@ -1,12 +1,13 @@
 import type { VariantProps } from "class-variance-authority";
 import * as React from "react";
 import { cva } from "class-variance-authority";
+import { Loader2Icon } from "lucide-react";
 import { Slot } from "radix-ui";
 
-import { cn } from "@nxss/ui";
+import { cn } from ".";
 
 export const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4",
   {
     variants: {
       variant: {
@@ -22,10 +23,10 @@ export const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
-        sm: "h-8 rounded-md px-3 text-xs",
+        sm: "h-8 rounded-md px-3 text-xs [&_svg]:size-4",
         md: "h-9 px-4 py-2",
-        lg: "h-10 rounded-md px-8",
-        xl: "h-11 rounded-md px-10",
+        lg: "h-10 rounded-md px-8 [&_svg]:size-5",
+        xl: "h-11 rounded-md px-10 [&_svg]:size-6",
         icon: "size-9",
       },
     },
@@ -40,6 +41,7 @@ interface ButtonProps
   extends React.ComponentProps<"button">,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
+  loading?: boolean;
 }
 
 export function Button({
@@ -47,12 +49,26 @@ export function Button({
   variant,
   size,
   asChild = false,
+  loading = false,
+  disabled = loading,
+  children,
   ...props
 }: ButtonProps) {
   const Comp = asChild ? Slot.Slot : "button";
   return (
     <Comp
       className={cn(buttonVariants({ variant, size, className }))}
+      disabled={disabled}
+      children={
+        loading ? (
+          <React.Fragment>
+            {children}
+            <Loader2Icon className="animate-spin" />
+          </React.Fragment>
+        ) : (
+          children
+        )
+      }
       {...props}
     />
   );
