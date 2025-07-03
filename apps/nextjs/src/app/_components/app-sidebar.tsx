@@ -1,11 +1,6 @@
-import {
-  Building2Icon,
-  Calendar,
-  Home,
-  Inbox,
-  Search,
-  Settings,
-} from "lucide-react";
+import { headers } from "next/headers";
+import Image from "next/image";
+import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
 
 import {
   Sidebar,
@@ -20,7 +15,7 @@ import {
   SidebarMenuItem,
 } from "@nxss/ui/sidebar";
 
-import { getSession } from "~/auth/server";
+import { auth, getSession } from "~/auth/server";
 import { NavUser } from "./nav-user";
 
 // Menu items.
@@ -53,11 +48,18 @@ const items = [
 ];
 
 export async function AppSidebar({
+  orgSlug,
   ...props
-}: React.ComponentProps<typeof Sidebar>) {
+}: React.ComponentProps<typeof Sidebar> & { orgSlug: string }) {
   const session = await getSession();
+  const nextHeaders = await headers();
 
   if (!session) return null;
+
+  const organization = await auth.api.getFullOrganization({
+    headers: nextHeaders,
+    query: { organizationSlug: orgSlug },
+  });
 
   return (
     <Sidebar collapsible="offcanvas" {...props}>
@@ -69,8 +71,16 @@ export async function AppSidebar({
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
               <a href="#">
-                <Building2Icon className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+                <Image
+                  width={20}
+                  height={20}
+                  src={"/nexuss-logo.png"}
+                  alt="Nexuss Logo"
+                  className="dark:invert"
+                />
+                <span className="text-base font-semibold">
+                  {organization?.name}
+                </span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
