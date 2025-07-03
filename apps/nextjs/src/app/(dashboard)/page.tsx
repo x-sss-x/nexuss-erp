@@ -1,33 +1,14 @@
-"use client";
+import { getSession } from "~/auth/server";
 
-import React from "react";
-import { useRouter } from "next/navigation";
-
-import { Button } from "@nxss/ui/button";
-
-import { authClient } from "~/auth/client";
-
-export default function Page() {
-  const { signOut, useSession } = authClient;
-  const { data } = useSession();
-  const router = useRouter();
+export default async function Page() {
+  const session = await getSession();
 
   return (
-    <React.Fragment>
-      Welcome User {data?.user.name}{" "}
-      <Button
-        onClick={() =>
-          signOut({
-            fetchOptions: {
-              onResponse(context) {
-                if (context.response.status == 200) router.refresh();
-              },
-            },
-          })
-        }
-      >
-        Sign out
-      </Button>
-    </React.Fragment>
+    <div className="px-4 md:px-6">
+      <h2 className="text-3xl font-bold">Welcome {session?.user.name} </h2>
+      <p className="text-muted-foreground">
+        Today is a big day in your institution.
+      </p>
+    </div>
   );
 }
