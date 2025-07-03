@@ -33,6 +33,7 @@
     "react-dom": "catalog:react19",
     "react-hook-form": "catalog:",
     "superjson": "2.2.2",
+    "use-debounce": "^10.0.5",
     "zod": "catalog:"
   },
   "devDependencies": {

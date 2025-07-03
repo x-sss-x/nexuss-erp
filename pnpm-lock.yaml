@@ -259,6 +259,9 @@ importers:
       superjson:
         specifier: 2.2.2
         version: 2.2.2
+      use-debounce:
+        specifier: ^10.0.5
+        version: 10.0.5(react@19.0.0)
       zod:
         specifier: 'catalog:'
         version: 3.25.49
@@ -7022,6 +7025,12 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+
+  use-debounce@10.0.5:
+    resolution: {integrity: sha512-Q76E3lnIV+4YT9AHcrHEHYmAd9LKwUAbPXDm7FlqVGDHiSOhX3RDjT8dm0AxbJup6WgOb1YEcKyCr11kBJR5KQ==}
+    engines: {node: '>= 16.0.0'}
+    peerDependencies:
+      react: '*'
 
   use-latest-callback@0.2.3:
     resolution: {integrity: sha512-7vI3fBuyRcP91pazVboc4qu+6ZqM8izPWX9k7cRnT8hbD5svslcknsh3S9BUhaK11OmgTV4oWZZVSeQAiV53SQ==}
@@ -14677,6 +14686,10 @@ snapshots:
       tslib: 2.8.1
     optionalDependencies:
       '@types/react': 19.1.6
+
+  use-debounce@10.0.5(react@19.0.0):
+    dependencies:
+      react: 19.0.0
 
   use-latest-callback@0.2.3(react@19.0.0):
     dependencies:

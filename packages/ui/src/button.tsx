@@ -7,7 +7,7 @@ import { Slot } from "radix-ui";
 import { cn } from "@nxss/ui";
 
 export const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4",
+  "inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:opacity-80",
   {
     variants: {
       variant: {
@@ -26,7 +26,7 @@ export const buttonVariants = cva(
         sm: "h-8 rounded-md px-3 text-xs [&_svg]:size-4",
         md: "h-9 px-4 py-2",
         lg: "h-10 rounded-md px-8 [&_svg]:size-5",
-        xl: "h-11 rounded-md px-10 [&_svg]:size-6",
+        xl: "text-md h-11 rounded-md px-10 [&_svg]:size-5",
         icon: "size-9",
       },
     },

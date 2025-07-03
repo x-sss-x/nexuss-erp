@@ -4,7 +4,9 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { oAuthProxy, organization } from "better-auth/plugins";
 
+import { eq } from "@nxss/db";
 import { db } from "@nxss/db/client";
+import { user } from "@nxss/db/schema";
 
 export function initAuth(options: {
   baseUrl: string;
@@ -34,8 +36,18 @@ export function initAuth(options: {
         },
       },
     },
+
     plugins: [
-      organization(),
+      organization({
+        organizationCreation: {
+          async afterCreate(data) {
+            await db
+              .update(user)
+              .set({ onboardingComplete: true })
+              .where(eq(user.id, data.user.id));
+          },
+        },
+      }),
       oAuthProxy({
         currentURL: options.baseUrl,
         productionURL: options.productionUrl,
