@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@nxss/ui/button";
@@ -12,7 +13,7 @@ export default function Page() {
   const router = useRouter();
 
   return (
-    <div>
+    <React.Fragment>
       Welcome User {data?.user.name}{" "}
       <Button
         onClick={() =>
@@ -27,6 +28,6 @@ export default function Page() {
       >
         Sign out
       </Button>
-    </div>
+    </React.Fragment>
   );
 }
