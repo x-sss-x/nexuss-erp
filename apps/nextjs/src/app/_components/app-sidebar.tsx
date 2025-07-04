@@ -16,21 +16,24 @@ import {
 } from "@nxss/ui/sidebar";
 
 import { auth, getSession } from "~/auth/server";
+import { NavBranches } from "./nav-branches";
 import { NavUser } from "./nav-user";
 
 // Menu items.
-const items = [
-  {
-    title: "Home",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Faculty",
-    url: "#",
-    icon: Users,
-  },
-];
+const items = {
+  mainNav: [
+    {
+      title: "Home",
+      url: "#",
+      icon: Home,
+    },
+    {
+      title: "Faculty",
+      url: "#",
+      icon: Users,
+    },
+  ],
+};
 
 export async function AppSidebar({
   orgSlug,
@@ -73,14 +76,13 @@ export async function AppSidebar({
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
+              {items.mainNav.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <a href={item.url}>
-                      <item.icon />
+                      <item.icon className="text-muted-foreground" />
                       <span>{item.title}</span>
                     </a>
                   </SidebarMenuButton>
@@ -89,9 +91,15 @@ export async function AppSidebar({
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel>Branches</SidebarGroupLabel>
-        </SidebarGroup>
+
+        <NavBranches
+          branches={[
+            { id: "1", name: "Automobile" },
+            { id: "2", name: "Computer Science" },
+            { id: "3", name: "Electrical & Electronics" },
+            { id: "4", name: "Mechanical" },
+          ]}
+        />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={session.user} />
