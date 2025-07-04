@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { useParams, usePathname } from "next/navigation";
 import {
   Book,
   Box,
@@ -24,7 +26,6 @@ import {
   SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@nxss/ui/sidebar";
@@ -34,22 +35,22 @@ const items = [
   {
     title: "Students",
     icon: GraduationCap,
-    href: "#",
+    url: "/students",
   },
   {
     title: "Subjects",
     icon: Book,
-    href: "#",
+    url: "/subjects",
   },
   {
     title: "Timetable",
     icon: Table2,
-    href: "#",
+    url: "/timetable",
   },
   {
     title: "Attendance",
     icon: CalendarCheck,
-    href: "#",
+    url: "/attendance",
   },
 ];
 
@@ -58,6 +59,8 @@ export function NavBranches({
 }: {
   branches: { id: string; name: string }[];
 }) {
+  const { orgSlug } = useParams<{ orgSlug: string }>();
+  const pathname = usePathname();
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Branches</SidebarGroupLabel>
@@ -71,36 +74,55 @@ export function NavBranches({
         <TooltipContent side="right">Create Branch</TooltipContent>
       </Tooltip>
       <SidebarMenu>
-        {branches.map((b) => (
-          <Collapsible key={b.id}>
-            <SidebarMenuItem>
-              <SidebarMenuButton className="font-medium">
-                <Circle className="text-muted-foreground" />
-                {b.name}
-              </SidebarMenuButton>
-              <CollapsibleTrigger asChild>
-                <SidebarMenuAction className="data-[state=open]:rotate-90">
-                  <ChevronRight />
-                  <span className="sr-only">Toggle</span>
-                </SidebarMenuAction>
-              </CollapsibleTrigger>
-              <CollapsibleContent>
-                <SidebarMenu>
-                  {items.map((subItem) => (
-                    <SidebarMenuItem key={subItem.title}>
-                      <SidebarMenuButton className="px-5" asChild>
-                        <a href={subItem.href}>
-                          <subItem.icon className="text-muted-foreground" />
-                          <span>{subItem.title}</span>
-                        </a>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
-              </CollapsibleContent>
-            </SidebarMenuItem>
-          </Collapsible>
-        ))}
+        {branches.map((b) => {
+          const branchUrl = `/${orgSlug}/branches/${b.id}`;
+          const isActive = pathname == branchUrl;
+
+          return (
+            <Collapsible key={b.id}>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  isActive={isActive}
+                  className="font-medium"
+                >
+                  <Link href={branchUrl}>
+                    <Circle className="text-muted-foreground" />
+                    {b.name}
+                  </Link>
+                </SidebarMenuButton>
+                <CollapsibleTrigger asChild>
+                  <SidebarMenuAction className="data-[state=open]:rotate-90">
+                    <ChevronRight />
+                    <span className="sr-only">Toggle</span>
+                  </SidebarMenuAction>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <SidebarMenu>
+                    {items.map((subItem) => {
+                      const subItemUrl = `${branchUrl}${subItem.url}`;
+                      const isActive = pathname.startsWith(subItemUrl);
+                      return (
+                        <SidebarMenuSubItem key={subItem.title}>
+                          <SidebarMenuSubButton
+                            isActive={isActive}
+                            className="px-5"
+                            asChild
+                          >
+                            <Link href={subItemUrl}>
+                              <subItem.icon className="text-muted-foreground" />
+                              <span>{subItem.title}</span>
+                            </Link>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      );
+                    })}
+                  </SidebarMenu>
+                </CollapsibleContent>
+              </SidebarMenuItem>
+            </Collapsible>
+          );
+        })}
       </SidebarMenu>
     </SidebarGroup>
   );
