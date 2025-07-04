@@ -20,7 +20,7 @@ export default async function Layout({
   return (
     <SidebarProvider defaultOpen={defaultOpen} className="bg-sidebar">
       <AppSidebar orgSlug={orgSlug} variant="inset" />
-      <SidebarInset>
+      <SidebarInset className="border">
         <SiteHeader />
         <div className="flex flex-1 flex-col">
           <div className="@container/main flex flex-1 flex-col gap-2">

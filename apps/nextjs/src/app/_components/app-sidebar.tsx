@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import Image from "next/image";
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import { Home, Users } from "lucide-react";
 
 import {
   Sidebar,
@@ -26,24 +26,9 @@ const items = [
     icon: Home,
   },
   {
-    title: "Inbox",
+    title: "Faculty",
     url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
+    icon: Users,
   },
 ];
 
@@ -103,6 +88,9 @@ export async function AppSidebar({
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>Branches</SidebarGroupLabel>
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
