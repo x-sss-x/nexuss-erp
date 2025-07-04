@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 
 import { SidebarInset, SidebarProvider } from "@nxss/ui/sidebar";
 
-import { AppSidebar } from "~/app/_components/app-sidebar";
+import { AppSidebar } from "~/app/_components/sidebar.tsx/app-sidebar";
 import { SiteHeader } from "~/app/_components/site-header";
 
 export default async function Layout({

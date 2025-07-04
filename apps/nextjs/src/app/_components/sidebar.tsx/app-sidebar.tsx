@@ -17,23 +17,8 @@ import {
 
 import { auth, getSession } from "~/auth/server";
 import { NavBranches } from "./nav-branches";
+import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
-
-// Menu items.
-const items = {
-  mainNav: [
-    {
-      title: "Home",
-      url: "#",
-      icon: Home,
-    },
-    {
-      title: "Faculty",
-      url: "#",
-      icon: Users,
-    },
-  ],
-};
 
 export async function AppSidebar({
   orgSlug,
@@ -75,22 +60,7 @@ export async function AppSidebar({
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.mainNav.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon className="text-muted-foreground" />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        <NavMain />
 
         <NavBranches
           branches={[
