@@ -7,6 +7,7 @@ import {
   ChevronRight,
   Circle,
   GraduationCap,
+  Plus,
   Table2,
 } from "lucide-react";
 
@@ -17,6 +18,7 @@ import {
 } from "@nxss/ui/collapsible";
 import {
   SidebarGroup,
+  SidebarGroupAction,
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuAction,
@@ -26,6 +28,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@nxss/ui/sidebar";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@nxss/ui/tooltip";
 
 const items = [
   {
@@ -58,6 +61,15 @@ export function NavBranches({
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Branches</SidebarGroupLabel>
+
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <SidebarGroupAction>
+            <Plus />
+          </SidebarGroupAction>
+        </TooltipTrigger>
+        <TooltipContent side="right">Create Branch</TooltipContent>
+      </Tooltip>
       <SidebarMenu>
         {branches.map((b) => (
           <Collapsible key={b.id}>
@@ -73,18 +85,18 @@ export function NavBranches({
                 </SidebarMenuAction>
               </CollapsibleTrigger>
               <CollapsibleContent>
-                <SidebarMenuSub>
+                <SidebarMenu>
                   {items.map((subItem) => (
-                    <SidebarMenuSubItem key={subItem.title}>
-                      <SidebarMenuSubButton asChild>
+                    <SidebarMenuItem key={subItem.title}>
+                      <SidebarMenuButton className="px-5" asChild>
                         <a href={subItem.href}>
                           <subItem.icon className="text-muted-foreground" />
                           <span>{subItem.title}</span>
                         </a>
-                      </SidebarMenuSubButton>
-                    </SidebarMenuSubItem>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
                   ))}
-                </SidebarMenuSub>
+                </SidebarMenu>
               </CollapsibleContent>
             </SidebarMenuItem>
           </Collapsible>
