@@ -74,7 +74,7 @@ export function NavBranches({
         {branches.map((b) => (
           <Collapsible key={b.id}>
             <SidebarMenuItem>
-              <SidebarMenuButton>
+              <SidebarMenuButton className="font-medium">
                 <Circle className="text-muted-foreground" />
                 {b.name}
               </SidebarMenuButton>
