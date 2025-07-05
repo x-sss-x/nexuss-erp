@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable } from "drizzle-orm/pg-core";
+import { index, pgTable } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 
@@ -27,26 +27,30 @@ export const CreatePostSchema = createInsertSchema(Post, {
 });
 
 /** Branch schema */
-export const branch = pgTable("branch", (t) => ({
-  id: t.uuid().primaryKey().defaultRandom(),
-  name: t.varchar({ length: 256 }).notNull(),
-  icon: t
-    .varchar({ length: 256 })
-    .default("IconBuildingSkyscraperFilled")
-    .notNull(),
-  userId: t
-    .text()
-    .notNull()
-    .references(() => user.id),
-  organizationId: t
-    .text()
-    .notNull()
-    .references(() => organization.id),
-  createdAt: t.timestamp().defaultNow().notNull(),
-  updatedAt: t
-    .timestamp({ mode: "date", withTimezone: true })
-    .$onUpdateFn(() => sql`now()`),
-}));
+export const branch = pgTable(
+  "branch",
+  (t) => ({
+    id: t.uuid().primaryKey().defaultRandom(),
+    name: t.varchar({ length: 256 }).notNull(),
+    icon: t
+      .varchar({ length: 256 })
+      .default("IconBuildingSkyscraperFilled")
+      .notNull(),
+    userId: t
+      .text()
+      .notNull()
+      .references(() => user.id),
+    organizationId: t
+      .text()
+      .notNull()
+      .references(() => organization.id),
+    createdAt: t.timestamp().defaultNow().notNull(),
+    updatedAt: t
+      .timestamp({ mode: "date", withTimezone: true })
+      .$onUpdateFn(() => sql`now()`),
+  }),
+  (t) => [index().on(t.userId), index().on(t.organizationId)],
+);
 
 export const CreateBranchSchema = createInsertSchema(branch, {
   name: z
