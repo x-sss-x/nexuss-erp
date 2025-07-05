@@ -3,13 +3,12 @@
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import {
-  IconBook,
   IconBook2,
   IconCalendarCheck,
-  IconChevronRight,
   IconCircle,
   IconPlus,
   IconTable,
+  IconTriangleFilled,
   IconUsers,
 } from "@tabler/icons-react";
 
@@ -85,7 +84,7 @@ export function NavBranches({
 
           return (
             <Collapsible key={b.id}>
-              <SidebarMenuItem>
+              <SidebarMenuItem className="items-center">
                 <SidebarMenuButton
                   asChild
                   isActive={isActive}
@@ -93,15 +92,16 @@ export function NavBranches({
                 >
                   <Link href={branchUrl}>
                     <IconCircle className="text-muted-foreground" />
-                    {b.name}
+                    <span className="truncate pr-3.5">{b.name}</span>
                   </Link>
                 </SidebarMenuButton>
                 <CollapsibleTrigger asChild>
-                  <SidebarMenuAction className="data-[state=open]:rotate-90">
-                    <IconChevronRight />
+                  <SidebarMenuAction className="data-[state=open]:rotate-90 [&_svg]:size-1.5">
+                    <IconTriangleFilled className="rotate-90 text-muted-foreground" />
                     <span className="sr-only">Toggle</span>
                   </SidebarMenuAction>
                 </CollapsibleTrigger>
+
                 <CollapsibleContent>
                   <SidebarMenu>
                     {items.map((subItem) => {
