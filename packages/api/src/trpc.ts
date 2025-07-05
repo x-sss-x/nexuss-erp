@@ -120,9 +120,30 @@ export const protectedProcedure = t.procedure
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }
     return next({
-      ctx: {
-        // infers the `session` as non-nullable
-        session: { ...ctx.session, user: ctx.session.user },
-      },
+      ctx: { ...ctx.session, user: ctx.session.user },
+    });
+  });
+
+/**
+ * Organization procedure
+ *
+ * If you want a query or mutation to ONLY be accessible to selected organization, use this. It verifies
+ * the Active Organization is set or not. It gaurantees `ctx.activeOrganizatoinId` is not null contacted with `protectedProcedure`
+ */
+export const organizationProcedure = t.procedure
+  .use(timingMiddleware)
+  .concat(protectedProcedure)
+  .use(({ ctx, next }) => {
+    const activeOrganizationId = ctx.session.activeOrganizationId;
+
+    if (!activeOrganizationId) {
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: "Organization not selected, set active organizationId",
+      });
+    }
+
+    return next({
+      ctx: { ...ctx.session, user: ctx.user, activeOrganizationId },
     });
   });

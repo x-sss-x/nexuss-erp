@@ -1,7 +1,8 @@
 "use client";
 
 import type { z } from "zod/v4";
-import React from "react";
+import React, { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { CreateBranchSchema } from "@nxss/db/schema";
 import { Button } from "@nxss/ui/button";
@@ -25,13 +26,16 @@ import {
   useForm,
 } from "@nxss/ui/form";
 import { Input } from "@nxss/ui/input";
+import { toast } from "@nxss/ui/toast";
 
 import type { IconPickerIcon } from "./icon-picker";
+import { useTRPC } from "~/trpc/react";
 import IconPicker, { TablerReactIcon } from "./icon-picker";
 
 export function CreateBranchDialog(
   props: React.ComponentProps<typeof DialogTrigger>,
 ) {
+  const [open, setOpen] = useState(false);
   const form = useForm({
     schema: CreateBranchSchema,
     defaultValues: {
@@ -40,12 +44,28 @@ export function CreateBranchDialog(
     },
   });
 
-  function onSubmit(values: z.infer<typeof CreateBranchSchema>) {
-    console.log(values);
+  const trpc = useTRPC();
+  const queryClient = useQueryClient();
+  const { mutateAsync: createBranch } = useMutation(
+    trpc.branch.create.mutationOptions({
+      async onSuccess(_, variables) {
+        toast.success(`${variables.name} branch created`);
+        await queryClient.invalidateQueries(trpc.branch.getAll.queryFilter());
+        form.reset();
+        setOpen(false);
+      },
+      onError() {
+        toast.error("Something went wrong");
+      },
+    }),
+  );
+
+  async function onSubmit(values: z.infer<typeof CreateBranchSchema>) {
+    await createBranch(values);
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger {...props} asChild />
       <DialogContent>
         <DialogHeader>
