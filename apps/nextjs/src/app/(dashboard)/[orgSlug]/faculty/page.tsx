@@ -7,6 +7,7 @@ import { Input } from "@nxss/ui/input";
 import type { Staff } from "./columns";
 import Container from "~/app/_components/container";
 import { DataTable } from "~/app/_components/data-table";
+import { InviteFacultyButton } from "~/app/_components/invite-faculty-button";
 import { SiteHeader } from "~/app/_components/site-header";
 import { columns } from "./columns";
 
@@ -96,7 +97,7 @@ export default function Page() {
             <Input placeholder="Search..." className="min-w-72 ps-8" />
           </div>
 
-          <Button>Invite</Button>
+          <InviteFacultyButton />
         </div>
       </Container>
       <DataTable columns={columns} data={staffList} />
