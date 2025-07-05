@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
-import { Home, Users } from "lucide-react";
+import { IconHome, IconUsers } from "@tabler/icons-react";
 
 import {
   SidebarGroup,
@@ -16,13 +16,13 @@ const items = [
   {
     title: "Home",
     url: "",
-    icon: Home,
+    icon: IconHome,
     exact: true,
   },
   {
     title: "Faculty",
     url: "/faculty",
-    icon: Users,
+    icon: IconUsers,
   },
 ];
 

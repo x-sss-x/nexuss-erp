@@ -3,7 +3,7 @@
   "style": "new-york",
   "rsc": true,
   "tsx": true,
-  "iconLibrary": "lucide",
+  "iconLibrary": "tabler",
   "tailwind": {
     "config": "../../tooling/tailwind/web.ts",
     "css": "unused.css",

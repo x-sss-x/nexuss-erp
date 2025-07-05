@@ -3,8 +3,11 @@
 import type { VariantProps } from "class-variance-authority";
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
+import {
+  IconLayoutSidebarLeftCollapse,
+  IconLayoutSidebarLeftCollapseFilled,
+} from "@tabler/icons-react";
 import { cva } from "class-variance-authority";
-import { PanelLeftIcon } from "lucide-react";
 
 import { cn } from "@nxss/ui";
 import { Button } from "@nxss/ui/button";
@@ -260,7 +263,7 @@ function SidebarTrigger({
   onClick,
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { toggleSidebar } = useSidebar();
+  const { toggleSidebar, state } = useSidebar();
 
   return (
     <Button
@@ -275,7 +278,11 @@ function SidebarTrigger({
       }}
       {...props}
     >
-      <PanelLeftIcon className="size-4" />
+      {state === "collapsed" ? (
+        <IconLayoutSidebarLeftCollapse className="size-4" />
+      ) : (
+        <IconLayoutSidebarLeftCollapseFilled />
+      )}
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   );

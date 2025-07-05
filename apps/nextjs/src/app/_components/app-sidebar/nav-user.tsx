@@ -1,7 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { CreditCard, LogOut, MoreVerticalIcon, UserCircle } from "lucide-react";
+import {
+  IconCreditCard,
+  IconDots,
+  IconLogout,
+  IconUserCircle,
+} from "@tabler/icons-react";
 
 import type { Session } from "@nxss/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@nxss/ui/avatar";
@@ -48,7 +53,7 @@ export function NavUser({ user }: { user: Session["user"] }) {
                   {user.email}
                 </span>
               </div>
-              <MoreVerticalIcon className="ml-auto size-4" />
+              <IconDots className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -76,11 +81,11 @@ export function NavUser({ user }: { user: Session["user"] }) {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <UserCircle />
+                <IconUserCircle />
                 Account
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <CreditCard />
+                <IconCreditCard />
                 Billing
               </DropdownMenuItem>
             </DropdownMenuGroup>
@@ -96,7 +101,7 @@ export function NavUser({ user }: { user: Session["user"] }) {
                 })
               }
             >
-              <LogOut />
+              <IconLogout />
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>

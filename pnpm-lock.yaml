@@ -6,6 +6,9 @@ settings:
 
 catalogs:
   default:
+    '@tabler/icons-react':
+      specifier: ^3.34.0
+      version: 3.34.0
     '@tanstack/react-query':
       specifier: ^5.80.7
       version: 5.80.7
@@ -21,9 +24,6 @@ catalogs:
     eslint:
       specifier: ^9.28.0
       version: 9.28.0
-    lucide-react:
-      specifier: ^0.525.0
-      version: 0.525.0
     prettier:
       specifier: ^3.5.3
       version: 3.5.3
@@ -229,6 +229,9 @@ importers:
       '@t3-oss/env-nextjs':
         specifier: ^0.13.6
         version: 0.13.6(arktype@2.1.20)(typescript@5.8.3)(valibot@1.0.0-beta.15(typescript@5.8.3))(zod@3.25.49)
+      '@tabler/icons-react':
+        specifier: 'catalog:'
+        version: 3.34.0(react@19.0.0)
       '@tanstack/react-query':
         specifier: 'catalog:'
         version: 5.80.7(react@19.0.0)
@@ -244,9 +247,6 @@ importers:
       '@trpc/tanstack-react-query':
         specifier: 'catalog:'
         version: 11.4.0(@tanstack/react-query@5.80.7(react@19.0.0))(@trpc/client@11.4.0(@trpc/server@11.4.0(typescript@5.8.3))(typescript@5.8.3))(@trpc/server@11.4.0(typescript@5.8.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.8.3)
-      lucide-react:
-        specifier: 'catalog:'
-        version: 0.525.0(react@19.0.0)
       next:
         specifier: ^15.3.3
         version: 15.3.3(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -467,12 +467,12 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.2.7
         version: 1.2.7(@types/react-dom@19.1.5(@types/react@19.1.6))(@types/react@19.1.6)(react-dom@19.1.0(react@19.0.0))(react@19.0.0)
+      '@tabler/icons-react':
+        specifier: 'catalog:'
+        version: 3.34.0(react@19.0.0)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
-      lucide-react:
-        specifier: 'catalog:'
-        version: 0.525.0(react@19.0.0)
       next-themes:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.1.0(react@19.0.0))(react@19.0.0)
@@ -3087,6 +3087,14 @@ packages:
       zod:
         optional: true
 
+  '@tabler/icons-react@3.34.0':
+    resolution: {integrity: sha512-OpEIR2iZsIXECtAIMbn1zfKfQ3zKJjXyIZlkgOGUL9UkMCFycEiF2Y8AVfEQsyre/3FnBdlWJvGr0NU47n2TbQ==}
+    peerDependencies:
+      react: '>= 16'
+
+  '@tabler/icons@3.34.0':
+    resolution: {integrity: sha512-jtVqv0JC1WU2TTEBN32D9+R6mc1iEBuPwLnBsWaR02SIEciu9aq5806AWkCHuObhQ4ERhhXErLEK7Fs+tEZxiA==}
+
   '@tanstack/query-core@5.80.7':
     resolution: {integrity: sha512-s09l5zeUKC8q7DCCCIkVSns8zZrK4ZDT6ryEjxNBFi68G4z2EBobBS7rdOY3r6W1WbUDpc1fe5oY+YO/+2UVUg==}
 
@@ -5436,11 +5444,6 @@ packages:
   lru.min@1.1.2:
     resolution: {integrity: sha512-Nv9KddBcQSlQopmBHXSsZVY5xsdlZkdH/Iey0BlcBYggMd4two7cZnKOK9vmy3nY0O5RGH99z1PCeTpPqszUYg==}
     engines: {bun: '>=1.0.0', deno: '>=1.30.0', node: '>=8.0.0'}
-
-  lucide-react@0.525.0:
-    resolution: {integrity: sha512-Tm1txJ2OkymCGkvwoHt33Y2JpN5xucVq1slHcgE6Lk0WjDfjgKWor5CdVER8U6DvcfMwh4M8XxmpTiyzfmfDYQ==}
-    peerDependencies:
-      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
@@ -10065,6 +10068,13 @@ snapshots:
       valibot: 1.0.0-beta.15(typescript@5.8.3)
       zod: 3.25.49
 
+  '@tabler/icons-react@3.34.0(react@19.0.0)':
+    dependencies:
+      '@tabler/icons': 3.34.0
+      react: 19.0.0
+
+  '@tabler/icons@3.34.0': {}
+
   '@tanstack/query-core@5.80.7': {}
 
   '@tanstack/react-query@5.80.7(react@19.0.0)':
@@ -12792,10 +12802,6 @@ snapshots:
 
   lru.min@1.1.2:
     optional: true
-
-  lucide-react@0.525.0(react@19.0.0):
-    dependencies:
-      react: 19.0.0
 
   magic-string@0.30.17:
     dependencies:

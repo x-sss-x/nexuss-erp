@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight, Building } from "lucide-react";
+import { IconArrowRight, IconBuilding } from "@tabler/icons-react";
 import { useForm } from "react-hook-form";
 import { useDebouncedCallback } from "use-debounce";
 import { z } from "zod";
@@ -105,7 +105,7 @@ export function Organization() {
             <FormItem>
               <FormControl>
                 <div className="relative inline-flex w-full items-center">
-                  <Building className="absolute ml-2 text-muted-foreground" />
+                  <IconBuilding className="absolute ml-2 text-muted-foreground" />
                   <Input
                     {...field}
                     required
@@ -148,7 +148,7 @@ export function Organization() {
           className="group w-full"
         >
           Continue{" "}
-          <ArrowRight className="transition-all duration-200 group-hover:translate-x-1.5" />
+          <IconArrowRight className="transition-all duration-200 group-hover:translate-x-1.5" />
         </Button>
       </form>
     </Form>

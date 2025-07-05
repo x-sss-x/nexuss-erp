@@ -1,7 +1,7 @@
 "use client";
 
 import type { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
+import { IconDots } from "@tabler/icons-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@nxss/ui/avatar";
 import { Button } from "@nxss/ui/button";
@@ -65,7 +65,7 @@ export const columns: ColumnDef<Staff>[] = [
             className="opacity-0 group-hover:opacity-100"
             size={"icon"}
           >
-            <MoreHorizontal />
+            <IconDots />
           </Button>
         </div>
       );

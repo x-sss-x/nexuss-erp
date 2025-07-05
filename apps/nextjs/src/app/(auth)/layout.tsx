@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { IconArrowLeft } from "@tabler/icons-react";
 
 import { Button } from "@nxss/ui/button";
 
@@ -20,7 +20,7 @@ export default async function AuthLayout({
       <div>
         <Link href={"/"}>
           <Button variant={"outline"}>
-            <ArrowLeft />
+            <IconArrowLeft />
             Home
           </Button>
         </Link>

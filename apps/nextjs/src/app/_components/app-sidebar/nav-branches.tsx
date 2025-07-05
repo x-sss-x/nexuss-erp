@@ -3,15 +3,15 @@
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import {
-  Book,
-  Box,
-  CalendarCheck,
-  ChevronRight,
-  Circle,
-  GraduationCap,
-  Plus,
-  Table2,
-} from "lucide-react";
+  IconBook,
+  IconBook2,
+  IconCalendarCheck,
+  IconChevronRight,
+  IconCircle,
+  IconPlus,
+  IconTable,
+  IconUsers,
+} from "@tabler/icons-react";
 
 import {
   Collapsible,
@@ -36,22 +36,22 @@ import { CreateBranchDialog } from "../create-branch-dialog";
 const items = [
   {
     title: "Students",
-    icon: GraduationCap,
+    icon: IconUsers,
     url: "/students",
   },
   {
     title: "Subjects",
-    icon: Book,
+    icon: IconBook2,
     url: "/subjects",
   },
   {
     title: "Timetable",
-    icon: Table2,
+    icon: IconTable,
     url: "/timetable",
   },
   {
     title: "Attendance",
-    icon: CalendarCheck,
+    icon: IconCalendarCheck,
     url: "/attendance",
   },
 ];
@@ -71,7 +71,7 @@ export function NavBranches({
         <TooltipTrigger asChild>
           <CreateBranchDialog>
             <SidebarGroupAction>
-              <Plus />
+              <IconPlus />
             </SidebarGroupAction>
           </CreateBranchDialog>
         </TooltipTrigger>
@@ -92,13 +92,13 @@ export function NavBranches({
                   className="font-medium"
                 >
                   <Link href={branchUrl}>
-                    <Circle className="text-muted-foreground" />
+                    <IconCircle className="text-muted-foreground" />
                     {b.name}
                   </Link>
                 </SidebarMenuButton>
                 <CollapsibleTrigger asChild>
                   <SidebarMenuAction className="data-[state=open]:rotate-90">
-                    <ChevronRight />
+                    <IconChevronRight />
                     <span className="sr-only">Toggle</span>
                   </SidebarMenuAction>
                 </CollapsibleTrigger>
@@ -111,7 +111,7 @@ export function NavBranches({
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton
                             isActive={isActive}
-                            className="px-5"
+                            className="px-5 text-xs"
                             asChild
                           >
                             <Link href={subItemUrl}>

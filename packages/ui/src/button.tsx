@@ -1,7 +1,7 @@
 import type { VariantProps } from "class-variance-authority";
 import * as React from "react";
+import { IconLoader } from "@tabler/icons-react";
 import { cva } from "class-variance-authority";
-import { Loader2Icon } from "lucide-react";
 import { Slot } from "radix-ui";
 
 import { cn } from "@nxss/ui";
@@ -63,7 +63,7 @@ export function Button({
         loading ? (
           <React.Fragment>
             {children}
-            <Loader2Icon className="animate-spin" />
+            <IconLoader className="animate-spin" />
           </React.Fragment>
         ) : (
           children
