@@ -11,6 +11,8 @@ import {
   IconTriangleFilled,
   IconUsers,
 } from "@tabler/icons-react";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { isEmpty } from "lodash";
 
 import {
   Collapsible,
@@ -30,6 +32,7 @@ import {
 } from "@nxss/ui/sidebar";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@nxss/ui/tooltip";
 
+import { useTRPC } from "~/trpc/react";
 import { CreateBranchDialog } from "../create-branch-dialog";
 
 const items = [
@@ -55,13 +58,69 @@ const items = [
   },
 ];
 
-export function NavBranches({
-  branches,
-}: {
-  branches: { id: string; name: string }[];
-}) {
+function NavBranchList() {
   const { orgSlug } = useParams<{ orgSlug: string }>();
   const pathname = usePathname();
+  const trpc = useTRPC();
+  const branches = useSuspenseQuery(trpc.branch.getAll.queryOptions());
+
+  return (
+    <>
+      {branches.data.map((b) => {
+        const branchUrl = `/${orgSlug}/branches/${b.id}`;
+        const isActive = pathname == branchUrl;
+
+        return (
+          <Collapsible key={b.id}>
+            <SidebarMenuItem className="items-center">
+              <SidebarMenuButton
+                asChild
+                isActive={isActive}
+                className="font-medium"
+              >
+                <Link href={branchUrl}>
+                  <IconCircle className="text-muted-foreground" />
+                  <span className="truncate pr-3.5">{b.name}</span>
+                </Link>
+              </SidebarMenuButton>
+              <CollapsibleTrigger asChild>
+                <SidebarMenuAction className="data-[state=open]:rotate-90 [&_svg]:size-1.5">
+                  <IconTriangleFilled className="rotate-90 text-muted-foreground" />
+                  <span className="sr-only">Toggle</span>
+                </SidebarMenuAction>
+              </CollapsibleTrigger>
+
+              <CollapsibleContent>
+                <SidebarMenu>
+                  {items.map((subItem) => {
+                    const subItemUrl = `${branchUrl}${subItem.url}`;
+                    const isActive = pathname.startsWith(subItemUrl);
+                    return (
+                      <SidebarMenuSubItem key={subItem.title}>
+                        <SidebarMenuSubButton
+                          isActive={isActive}
+                          className="px-5 text-xs"
+                          asChild
+                        >
+                          <Link href={subItemUrl}>
+                            <subItem.icon className="text-muted-foreground" />
+                            <span>{subItem.title}</span>
+                          </Link>
+                        </SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
+                    );
+                  })}
+                </SidebarMenu>
+              </CollapsibleContent>
+            </SidebarMenuItem>
+          </Collapsible>
+        );
+      })}
+    </>
+  );
+}
+
+export function NavBranches() {
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Branches</SidebarGroupLabel>
@@ -78,56 +137,7 @@ export function NavBranches({
         <TooltipContent side="right">Create Branch</TooltipContent>
       </Tooltip>
       <SidebarMenu>
-        {branches.map((b) => {
-          const branchUrl = `/${orgSlug}/branches/${b.id}`;
-          const isActive = pathname == branchUrl;
-
-          return (
-            <Collapsible key={b.id}>
-              <SidebarMenuItem className="items-center">
-                <SidebarMenuButton
-                  asChild
-                  isActive={isActive}
-                  className="font-medium"
-                >
-                  <Link href={branchUrl}>
-                    <IconCircle className="text-muted-foreground" />
-                    <span className="truncate pr-3.5">{b.name}</span>
-                  </Link>
-                </SidebarMenuButton>
-                <CollapsibleTrigger asChild>
-                  <SidebarMenuAction className="data-[state=open]:rotate-90 [&_svg]:size-1.5">
-                    <IconTriangleFilled className="rotate-90 text-muted-foreground" />
-                    <span className="sr-only">Toggle</span>
-                  </SidebarMenuAction>
-                </CollapsibleTrigger>
-
-                <CollapsibleContent>
-                  <SidebarMenu>
-                    {items.map((subItem) => {
-                      const subItemUrl = `${branchUrl}${subItem.url}`;
-                      const isActive = pathname.startsWith(subItemUrl);
-                      return (
-                        <SidebarMenuSubItem key={subItem.title}>
-                          <SidebarMenuSubButton
-                            isActive={isActive}
-                            className="px-5 text-xs"
-                            asChild
-                          >
-                            <Link href={subItemUrl}>
-                              <subItem.icon className="text-muted-foreground" />
-                              <span>{subItem.title}</span>
-                            </Link>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                      );
-                    })}
-                  </SidebarMenu>
-                </CollapsibleContent>
-              </SidebarMenuItem>
-            </Collapsible>
-          );
-        })}
+        <NavBranchList />
       </SidebarMenu>
     </SidebarGroup>
   );
