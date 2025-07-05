@@ -12,7 +12,6 @@ import {
   IconUsers,
 } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { isEmpty } from "lodash";
 
 import {
   Collapsible,
@@ -34,6 +33,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@nxss/ui/tooltip";
 
 import { useTRPC } from "~/trpc/react";
 import { CreateBranchDialog } from "../create-branch-dialog";
+import { IconPickerIcon, TablerReactIcon } from "../icon-picker";
 
 const items = [
   {
@@ -79,7 +79,11 @@ function NavBranchList() {
                 className="font-medium"
               >
                 <Link href={branchUrl}>
-                  <IconCircle className="text-muted-foreground" />
+                  <TablerReactIcon
+                    name={b.icon as IconPickerIcon}
+                    isActive
+                    className="size-6 [&_svg]:size-4"
+                  />
                   <span className="truncate pr-3.5">{b.name}</span>
                 </Link>
               </SidebarMenuButton>
