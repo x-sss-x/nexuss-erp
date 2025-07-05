@@ -83,9 +83,9 @@ function NavBranchList() {
                   <TablerReactIcon
                     name={b.icon as IconPickerIcon}
                     isActive
-                    className="size-6 [&_svg]:size-4"
+                    className="size-5 [&_svg]:size-3.5"
                   />
-                  {b.name}
+                  <span className="max-w-full truncate pr-2">{b.name}</span>
                 </Link>
               </SidebarMenuButton>
               <CollapsibleTrigger asChild>

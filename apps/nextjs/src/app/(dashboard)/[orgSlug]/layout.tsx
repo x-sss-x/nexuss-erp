@@ -18,7 +18,7 @@ export default async function Layout({
   /** Continue to dashboard content */
   return (
     <SidebarProvider defaultOpen={defaultOpen} className="bg-sidebar">
-      <AppSidebar orgSlug={orgSlug} variant="inset" collapsible="icon" />
+      <AppSidebar orgSlug={orgSlug} variant="inset" />
       <SidebarInset className="border">{children}</SidebarInset>
     </SidebarProvider>
   );
