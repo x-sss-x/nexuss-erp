@@ -31,6 +31,8 @@ import {
 } from "@nxss/ui/sidebar";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@nxss/ui/tooltip";
 
+import { CreateBranchDialog } from "../create-branch-dialog";
+
 const items = [
   {
     title: "Students",
@@ -67,10 +69,13 @@ export function NavBranches({
 
       <Tooltip>
         <TooltipTrigger asChild>
-          <SidebarGroupAction>
-            <Plus />
-          </SidebarGroupAction>
+          <CreateBranchDialog>
+            <SidebarGroupAction>
+              <Plus />
+            </SidebarGroupAction>
+          </CreateBranchDialog>
         </TooltipTrigger>
+
         <TooltipContent side="right">Create Branch</TooltipContent>
       </Tooltip>
       <SidebarMenu>
