@@ -1,5 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono, Outfit } from "next/font/google";
+import {
+  Geist_Mono,
+  Inter,
+  Nunito_Sans,
+  Outfit,
+  Public_Sans,
+  Roboto,
+  Roboto_Mono,
+  Urbanist,
+} from "next/font/google";
 
 import { cn } from "@nxss/ui";
 import { ThemeProvider, ThemeToggle } from "@nxss/ui/theme";
@@ -36,13 +45,14 @@ export const viewport: Viewport = {
   ],
 };
 
-const geistSans = Outfit({
+const nunitoSans = Nunito_Sans({
   subsets: ["latin"],
-  variable: "--font-geist-sans",
+  display: "swap",
+  variable: "--font-nunito-sans",
 });
-const geistMono = Geist_Mono({
+const robotoMono = Roboto_Mono({
   subsets: ["latin"],
-  variable: "--font-geist-mono",
+  variable: "--font-roboto-mono",
 });
 
 export default function RootLayout(props: { children: React.ReactNode }) {
@@ -51,8 +61,8 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       <body
         className={cn(
           "min-h-screen bg-background font-sans text-foreground antialiased [&_svg]:stroke-[1.5]",
-          geistSans.variable,
-          geistMono.variable,
+          nunitoSans.variable,
+          robotoMono.variable,
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
