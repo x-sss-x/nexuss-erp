@@ -31,9 +31,10 @@ import {
 } from "@nxss/ui/sidebar";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@nxss/ui/tooltip";
 
+import type { IconPickerIcon } from "../icon-picker";
 import { useTRPC } from "~/trpc/react";
 import { CreateBranchDialog } from "../create-branch-dialog";
-import { IconPickerIcon, TablerReactIcon } from "../icon-picker";
+import { TablerReactIcon } from "../icon-picker";
 
 const items = [
   {
@@ -84,7 +85,7 @@ function NavBranchList() {
                     isActive
                     className="size-6 [&_svg]:size-4"
                   />
-                  <span className="truncate pr-3.5">{b.name}</span>
+                  {b.name}
                 </Link>
               </SidebarMenuButton>
               <CollapsibleTrigger asChild>
