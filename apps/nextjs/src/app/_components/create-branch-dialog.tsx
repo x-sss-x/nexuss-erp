@@ -26,6 +26,9 @@ import {
 } from "@nxss/ui/form";
 import { Input } from "@nxss/ui/input";
 
+import type { IconPickerIcon } from "./icon-picker";
+import IconPicker, { TablerReactIcon } from "./icon-picker";
+
 export function CreateBranchDialog(
   props: React.ComponentProps<typeof DialogTrigger>,
 ) {
@@ -33,6 +36,7 @@ export function CreateBranchDialog(
     schema: CreateBranchSchema,
     defaultValues: {
       name: "",
+      icon: "IconCircleFilled" as IconPickerIcon,
     },
   });
 
@@ -53,12 +57,27 @@ export function CreateBranchDialog(
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3.5">
             <DialogBody>
-              <div className="grid">
+              <div className="grid grid-cols-8">
+                <FormField
+                  control={form.control}
+                  name="icon"
+                  render={({ field }) => (
+                    <FormItem className="col-span-1">
+                      <IconPicker value={field.value} onChange={field.onChange}>
+                        <TablerReactIcon
+                          className="size-11 [&_svg]:size-6"
+                          isActive
+                          name={field.value as IconPickerIcon}
+                        />
+                      </IconPicker>
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="col-span-7">
                       <FormControl>
                         <Input
                           placeholder="Computer Science"

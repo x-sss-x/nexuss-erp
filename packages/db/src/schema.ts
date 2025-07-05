@@ -30,12 +30,16 @@ export const CreatePostSchema = createInsertSchema(Post, {
 export const branch = pgTable("branch", (t) => ({
   id: t.uuid().primaryKey().defaultRandom(),
   name: t.varchar({ length: 256 }).notNull(),
+  icon: t
+    .varchar({ length: 256 })
+    .default("IconBuildingSkyscraperFilled")
+    .notNull(),
   userId: t
-    .uuid()
+    .text()
     .notNull()
     .references(() => user.id),
   organizationId: t
-    .uuid()
+    .text()
     .notNull()
     .references(() => organization.id),
   createdAt: t.timestamp().defaultNow().notNull(),
@@ -49,6 +53,7 @@ export const CreateBranchSchema = createInsertSchema(branch, {
     .string({ error: "Name of the branch is required" })
     .min(1, "Name of the branch is required")
     .max(256),
+  icon: z.string().min(1).max(128),
 }).omit({
   id: true,
   userId: true,
