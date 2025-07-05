@@ -1,0 +1,9 @@
+{
+  "extends": "@nxss/tsconfig/internal-package.json",
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "react-jsx"
+  },
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"]
+}
