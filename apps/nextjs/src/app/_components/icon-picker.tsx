@@ -49,7 +49,7 @@ const tablerIconVariants = cva("size-7", {
       indigo: "[&_svg]:text-indigo-600 dark:[&_svg]:text-indigo-400",
     },
     isActive: {
-      true: "bg-indigo-600/10 hover:bg-indigo-400/20 dark:bg-indigo-400/20 dark:hover:bg-indigo-600/10",
+      true: "bg-indigo-600/10 hover:bg-indigo-600/10 dark:bg-indigo-400/20 dark:hover:bg-indigo-400/20",
     },
   },
   defaultVariants: {

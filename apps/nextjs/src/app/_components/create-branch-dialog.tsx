@@ -115,7 +115,7 @@ export function CreateBranchDialog(
               <DialogClose asChild>
                 <Button variant={"outline"}>Cancel</Button>
               </DialogClose>
-              <Button>Create</Button>
+              <Button loading={form.formState.isSubmitting}>Create</Button>
             </DialogFooter>
           </form>
         </Form>

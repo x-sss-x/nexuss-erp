@@ -1,6 +1,6 @@
 import type { VariantProps } from "class-variance-authority";
 import * as React from "react";
-import { IconLoader } from "@tabler/icons-react";
+import { IconLoader2 } from "@tabler/icons-react";
 import { cva } from "class-variance-authority";
 import { Slot } from "radix-ui";
 
@@ -24,7 +24,7 @@ export const buttonVariants = cva(
       },
       size: {
         sm: "h-8 rounded-md px-3 text-xs [&_svg]:size-4",
-        md: "h-9 px-4 py-2",
+        md: "h-9 px-4 py-2 [&_svg]:size-4",
         lg: "h-10 rounded-md px-8 [&_svg]:size-5",
         xl: "text-md h-11 rounded-md px-10 [&_svg]:size-5",
         icon: "size-8 [&_svg]:size-4",
@@ -63,7 +63,7 @@ export function Button({
         loading ? (
           <React.Fragment>
             {children}
-            <IconLoader className="animate-spin" />
+            <IconLoader2 className="animate-spin" />
           </React.Fragment>
         ) : (
           children
