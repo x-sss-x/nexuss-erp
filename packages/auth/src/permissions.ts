@@ -14,10 +14,9 @@ const ac = createAccessControl(statement);
 const owner = ac.newRole({
   branch: ["create", "update", "delete"],
   organization: ["update", "delete"],
+  invitation: ["create", "cancel"],
 });
 
-const staff = ac.newRole({
-  branch: ["create", "update", "delete"],
-});
+const staff = ac.newRole({ branch: [] });
 
 export { ac, owner, staff };

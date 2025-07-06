@@ -65,7 +65,7 @@ export function initAuth(options: {
           });
           /** Send email to user using email provider */
           await resend.emails.send({
-            from: "NexussERP <onboarding@resend.dev>",
+            from: "NexussERP <resend@nexusserp.com>",
             to: data.email,
             subject: `You've been invited to join ${data.organization.name} 🎉`,
             react: (

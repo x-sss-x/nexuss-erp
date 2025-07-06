@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { z } from "zod/v4";
 
 import { Button } from "@nxss/ui/button";
@@ -22,6 +23,7 @@ import {
   useForm,
 } from "@nxss/ui/form";
 import { Textarea } from "@nxss/ui/textarea";
+import { toast } from "@nxss/ui/toast";
 
 import { authClient } from "~/auth/client";
 
@@ -50,6 +52,7 @@ export const InviteFacultySchema = z.object({
 
 export function InviteFacultyButton() {
   const organization = authClient.organization;
+  const [open, setOpen] = useState(false);
   const form = useForm({
     schema: InviteFacultySchema,
     defaultValues: {
@@ -64,13 +67,27 @@ export function InviteFacultyButton() {
         .split(",")
         .map((e) => e.trim())
         .map(async (email) => {
-          await organization.inviteMember({ email, role: "staff" });
+          await organization.inviteMember({
+            email,
+            role: "staff",
+            resend: true,
+            fetchOptions: {
+              onError(context) {
+                toast.error(context.error.message);
+              },
+              onSuccess() {
+                toast.success(`${email} invited`);
+              },
+            },
+          });
         }),
     );
+
+    setOpen(false);
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>Invite</Button>
       </DialogTrigger>
@@ -105,7 +122,9 @@ export function InviteFacultyButton() {
               <DialogClose asChild>
                 <Button variant={"outline"}>Cancel</Button>
               </DialogClose>
-              <Button>Send invites</Button>
+              <Button loading={form.formState.isSubmitting}>
+                Send invites
+              </Button>
             </DialogFooter>
           </form>
         </Form>

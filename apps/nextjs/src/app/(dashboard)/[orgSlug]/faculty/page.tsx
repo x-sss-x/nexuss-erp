@@ -1,5 +1,7 @@
 import React from "react";
+import { headers } from "next/headers";
 import { IconSearch } from "@tabler/icons-react";
+import { formatDistanceToNowStrict } from "date-fns";
 
 import { Input } from "@nxss/ui/input";
 
@@ -8,82 +10,32 @@ import Container from "~/app/_components/container";
 import { DataTable } from "~/app/_components/data-table";
 import { InviteFacultyButton } from "~/app/_components/invite-faculty-button";
 import { SiteHeader } from "~/app/_components/site-header";
+import { auth } from "~/auth/server";
 import { columns } from "./columns";
 
-export const staffList: Staff[] = [
-  {
-    id: "1",
-    name: "Dan Abramov",
-    email: "gaearon@ks.edu.in",
-    image: "https://github.com/gaearon.png",
-    joinedAt: "2022-06-10",
-  },
-  {
-    id: "2",
-    name: "Jake Archibald",
-    email: "jakearchibald@ks.edu.in",
-    image: "https://github.com/jakearchibald.png",
-    joinedAt: "2021-08-22",
-  },
-  {
-    id: "3",
-    name: "Evan You",
-    email: "yyx990803@ks.edu.in",
-    image: "https://github.com/yyx990803.png",
-    joinedAt: "2023-01-15",
-  },
-  {
-    id: "4",
-    name: "Sindre Sorhus",
-    email: "sindresorhus@ks.edu.in",
-    image: "https://github.com/sindresorhus.png",
-    joinedAt: "2020-11-30",
-  },
-  {
-    id: "5",
-    name: "Lee Robinson",
-    email: "leerob@ks.edu.in",
-    image: "https://github.com/leerob.png",
-    joinedAt: "2022-04-12",
-  },
-  {
-    id: "6",
-    name: "Kent C. Dodds",
-    email: "kentcdodds@ks.edu.in",
-    image: "https://github.com/kentcdodds.png",
-    joinedAt: "2023-07-09",
-  },
-  {
-    id: "7",
-    name: "Maggie Appleton",
-    email: "maggieappleton@ks.edu.in",
-    image: "https://github.com/maggieappleton.png",
-    joinedAt: "2021-01-20",
-  },
-  {
-    id: "8",
-    name: "Thor Webdev",
-    email: "thorwebdev@ks.edu.in",
-    image: "https://github.com/thorwebdev.png",
-    joinedAt: "2022-09-01",
-  },
-  {
-    id: "9",
-    name: "Shad CN",
-    email: "shadcn@ks.edu.in",
-    image: "https://github.com/shadcn.png",
-    joinedAt: "2020-02-17",
-  },
-  {
-    id: "10",
-    name: "Theo Browne",
-    email: "t3dotgg@ks.edu.in",
-    image: "https://github.com/t3dotgg.png",
-    joinedAt: "2023-03-05",
-  },
-];
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ orgSlug: string }>;
+}) {
+  const nextHeaders = await headers();
+  const { orgSlug } = await params;
+  const organization = await auth.api.getFullOrganization({
+    headers: nextHeaders,
+    query: { organizationSlug: orgSlug },
+  });
 
-export default function Page() {
+  if (!organization) throw new Error("No organization selected");
+
+  const faculty: Staff[] = organization.members.map((m) => ({
+    email: m.user.email,
+    id: m.userId,
+    image: m.user.image,
+    role: m.role,
+    joinedAt: formatDistanceToNowStrict(m.createdAt, { addSuffix: true }),
+    name: m.user.name,
+  }));
+
   return (
     <React.Fragment>
       <SiteHeader title="Faculty" />
@@ -99,7 +51,7 @@ export default function Page() {
           <InviteFacultyButton />
         </div>
       </Container>
-      <DataTable columns={columns} data={staffList} />
+      <DataTable columns={columns} data={faculty} />
     </React.Fragment>
   );
 }

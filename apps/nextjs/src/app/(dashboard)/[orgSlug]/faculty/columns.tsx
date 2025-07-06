@@ -4,6 +4,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { IconDots } from "@tabler/icons-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@nxss/ui/avatar";
+import { Badge } from "@nxss/ui/badge";
 import { Button } from "@nxss/ui/button";
 
 // This type is used to define the shape of our data.
@@ -11,8 +12,9 @@ import { Button } from "@nxss/ui/button";
 export interface Staff {
   id: string;
   email: string;
-  image: string;
+  image?: string;
   name: string;
+  role: "owner" | "staff";
   joinedAt: string;
 }
 
@@ -42,6 +44,13 @@ export const columns: ColumnDef<Staff>[] = [
           {props.getValue() as string}
         </p>
       );
+    },
+  },
+  {
+    accessorKey: "role",
+    header: "Role",
+    cell(props) {
+      return <Badge variant={"secondary"}>{props.getValue() as string}</Badge>;
     },
   },
   {
