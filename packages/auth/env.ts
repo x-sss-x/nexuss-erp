@@ -4,6 +4,7 @@ import { z } from "zod/v4";
 export function authEnv() {
   return createEnv({
     server: {
+      RESEND_API_KEY: z.string().min(1),
       AUTH_GOOGLE_ID: z.string().min(1),
       AUTH_GOOGLE_SECRET: z.string().min(1),
       AUTH_SECRET:

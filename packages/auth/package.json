@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
+    ".": "./src/index.tsx",
     "./middleware": "./src/middleware.ts",
     "./client": "./src/client.ts",
     "./env": "./env.ts"
@@ -25,11 +25,13 @@
     "next": "^15.3.3",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
+    "resend": "^4.6.0",
     "zod": "catalog:"
   },
   "devDependencies": {
     "@nxss/eslint-config": "workspace:*",
     "@nxss/prettier-config": "workspace:*",
+    "@nxss/transactional": "workspace:*",
     "@nxss/tsconfig": "workspace:*",
     "@types/react": "catalog:react19",
     "eslint": "catalog:",

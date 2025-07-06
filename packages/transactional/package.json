@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    "./*": "./emails/*.tsx"
   },
   "license": "MIT",
   "scripts": {
@@ -27,7 +27,7 @@
   "prettier": "@nxss/prettier-config",
   "dependencies": {
     "@react-email/components": "0.1.1",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react": "catalog:react19",
+    "react-dom": "catalog:react19"
   }
 }

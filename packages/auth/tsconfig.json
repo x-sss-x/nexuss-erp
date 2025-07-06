@@ -1,5 +1,9 @@
 {
   "extends": "@nxss/tsconfig/base.json",
-  "include": ["src", "*.ts", "@nxss/db"],
+  "include": ["src", "*.ts", ".tsx", "@nxss/transactional", "@nxss/db"],
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "preserve"
+  },
   "exclude": ["node_modules"]
 }

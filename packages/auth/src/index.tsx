@@ -3,10 +3,12 @@ import { expo } from "@better-auth/expo";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { oAuthProxy, organization } from "better-auth/plugins";
+import { Resend } from "resend";
 
 import { eq } from "@nxss/db";
 import { db } from "@nxss/db/client";
 import { user } from "@nxss/db/schema";
+import { OrganizationInvite } from "@nxss/transactional/organization-invite";
 
 export function initAuth(options: {
   baseUrl: string;
@@ -15,7 +17,10 @@ export function initAuth(options: {
 
   googleClientId: string;
   googleClientSecret: string;
+  resendApiKey: string;
 }) {
+  const resend = new Resend(options.resendApiKey);
+
   const config = {
     database: drizzleAdapter(db, { provider: "pg" }),
     baseURL: options.baseUrl,
@@ -46,6 +51,25 @@ export function initAuth(options: {
               .set({ onboardingComplete: true })
               .where(eq(user.id, data.user.id));
           },
+        },
+        async sendInvitationEmail(data) {
+          const singleUser = await db.query.user.findFirst({
+            where: eq(user.id, data.id),
+          });
+          /** Send email to user using email provider */
+          await resend.emails.send({
+            from: "NexussERP <onboarding@resend.dev>",
+            to: data.email,
+            subject: `You've been invited to join ${data.organization.name} 🎉`,
+            react: (
+              <OrganizationInvite
+                inviteLink={data.invitation.inviterId}
+                inviteeName={singleUser?.name}
+                organizationName={data.organization.name}
+                inviterName={data.inviter.user.name}
+              />
+            ),
+          });
         },
       }),
       oAuthProxy({
