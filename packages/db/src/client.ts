@@ -7,7 +7,7 @@ if (!process.env.POSTGRES_URL) {
   throw new Error("Missing POSTGRES_URL");
 }
 
-const pool = new Pool({ connectionString: process.env.POSTGRES_URL });
+const pool = new Pool({ connectionString: process.env.POSTGRES_URL, max: 1 });
 
 export const db = drizzle({
   client: pool,

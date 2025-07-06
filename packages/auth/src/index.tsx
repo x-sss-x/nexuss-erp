@@ -10,6 +10,8 @@ import { db } from "@nxss/db/client";
 import { user } from "@nxss/db/schema";
 import { OrganizationInvite } from "@nxss/transactional/organization-invite";
 
+import { ac, owner, staff } from "./permissions";
+
 export function initAuth(options: {
   baseUrl: string;
   productionUrl: string;
@@ -51,6 +53,11 @@ export function initAuth(options: {
               .set({ onboardingComplete: true })
               .where(eq(user.id, data.user.id));
           },
+        },
+        ac,
+        roles: {
+          owner,
+          staff,
         },
         async sendInvitationEmail(data) {
           const singleUser = await db.query.user.findFirst({

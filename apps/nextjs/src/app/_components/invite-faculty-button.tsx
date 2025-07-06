@@ -55,6 +55,7 @@ export function InviteFacultyButton() {
     defaultValues: {
       emails: "",
     },
+    mode: "onChange",
   });
 
   async function onSubmit(values: z.infer<typeof InviteFacultySchema>) {
@@ -63,7 +64,7 @@ export function InviteFacultyButton() {
         .split(",")
         .map((e) => e.trim())
         .map(async (email) => {
-          await organization.inviteMember({ email, role: "member" });
+          await organization.inviteMember({ email, role: "staff" });
         }),
     );
   }
