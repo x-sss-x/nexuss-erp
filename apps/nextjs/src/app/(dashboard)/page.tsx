@@ -18,6 +18,7 @@ export default async function Page() {
 
   // No organization created redirect to crate organizatoin
   if (firstOrganization) {
+    // Set an active organization
     await auth.api.setActiveOrganization({
       headers: nextHeaders,
       body: { organizationId: firstOrganization.id },

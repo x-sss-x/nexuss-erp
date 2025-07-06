@@ -1,4 +1,3 @@
-import { headers } from "next/headers";
 import Image from "next/image";
 
 import {
@@ -11,25 +10,18 @@ import {
   SidebarMenuItem,
 } from "@nxss/ui/sidebar";
 
-import { auth, getSession } from "~/auth/server";
+import { getSession } from "~/auth/server";
 import { HydrateClient, prefetch, trpc } from "~/trpc/server";
 import { NavBranches } from "./nav-branches";
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
 
 export async function AppSidebar({
-  orgSlug,
   ...props
-}: React.ComponentProps<typeof Sidebar> & { orgSlug: string }) {
+}: React.ComponentProps<typeof Sidebar>) {
   const session = await getSession();
-  const nextHeaders = await headers();
 
   if (!session) return null;
-
-  const organization = await auth.api.getFullOrganization({
-    headers: nextHeaders,
-    query: { organizationSlug: orgSlug },
-  });
 
   prefetch(trpc.branch.getAll.queryOptions());
 
@@ -52,7 +44,7 @@ export async function AppSidebar({
                     className="dark:invert"
                   />
                   <span className="text-base font-semibold">
-                    {organization?.name}
+                    Organization Name
                   </span>
                 </a>
               </SidebarMenuButton>
