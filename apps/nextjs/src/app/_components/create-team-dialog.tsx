@@ -2,9 +2,9 @@
 
 import type { z } from "zod/v4";
 import React, { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import z4 from "zod/v4";
 
-import { CreateBranchSchema } from "@nxss/db/schema";
 import { Button } from "@nxss/ui/button";
 import {
   Dialog,
@@ -28,40 +28,38 @@ import {
 import { Input } from "@nxss/ui/input";
 import { toast } from "@nxss/ui/toast";
 
-import type { IconPickerIcon } from "./icon-picker";
-import { useTRPC } from "~/trpc/react";
-import IconPicker, { TablerReactIcon } from "./icon-picker";
+import { authClient } from "~/auth/client";
 
-export function CreateBranchDialog(
+const CreateTeamSchema = z4.object({
+  name: z4.string().min(1, "Required"),
+});
+
+export function CreateTeamDialog(
   props: React.ComponentProps<typeof DialogTrigger>,
 ) {
   const [open, setOpen] = useState(false);
   const form = useForm({
-    schema: CreateBranchSchema,
+    schema: CreateTeamSchema,
     defaultValues: {
       name: "",
-      icon: "IconCircleFilled" as IconPickerIcon,
     },
   });
+  const router = useRouter();
 
-  const trpc = useTRPC();
-  const queryClient = useQueryClient();
-  const { mutateAsync: createBranch } = useMutation(
-    trpc.branch.create.mutationOptions({
-      async onSuccess(_, variables) {
-        toast.success(`${variables.name} branch created`);
-        await queryClient.invalidateQueries(trpc.branch.getAll.queryFilter());
+  const organization = authClient.organization;
+
+  async function onSubmit(values: z.infer<typeof CreateTeamSchema>) {
+    await organization.createTeam(values, {
+      onSuccess() {
+        toast.success(`${values.name} branch created`);
+        router.refresh();
         form.reset();
         setOpen(false);
       },
-      onError() {
-        toast.error("Something went wrong");
+      onError(context) {
+        toast.error(context.error.message);
       },
-    }),
-  );
-
-  async function onSubmit(values: z.infer<typeof CreateBranchSchema>) {
-    await createBranch(values);
+    });
   }
 
   return (
@@ -69,16 +67,16 @@ export function CreateBranchDialog(
       <DialogTrigger {...props} asChild />
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>New branch</DialogTitle>
+          <DialogTitle>New Team</DialogTitle>
           <DialogDescription>
-            An workspace for students who choosed particular course to be study.
+            An team for managing the department or branch resources.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3.5">
             <DialogBody>
               <div className="grid grid-cols-8">
-                <FormField
+                {/* <FormField
                   control={form.control}
                   name="icon"
                   render={({ field }) => (
@@ -92,12 +90,12 @@ export function CreateBranchDialog(
                       </IconPicker>
                     </FormItem>
                   )}
-                />
+                /> */}
                 <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
-                    <FormItem className="col-span-7">
+                    <FormItem className="col-span-8">
                       <FormControl>
                         <Input
                           placeholder="Computer Science"

@@ -4,6 +4,8 @@ packages:
   - tooling/*
 catalog:
   eslint: ^9.28.0
+  better-auth: 1.2.12
+  "@better-auth/expo": 1.2.12
   "@tabler/icons-react": ^3.34.0
   prettier: ^3.5.3
   tailwindcss: ^3.4.15

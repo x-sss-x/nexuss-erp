@@ -1,5 +1,6 @@
 import "server-only";
 
+import type { Team } from "better-auth/plugins";
 import { cache } from "react";
 import { headers } from "next/headers";
 
@@ -25,4 +26,11 @@ export const auth = initAuth({
 
 export const getSession = cache(async () =>
   auth.api.getSession({ headers: await headers() }),
+);
+
+export const listOrganizationsTeams = cache(
+  async () =>
+    auth.api.listOrganizationTeams({ headers: await headers() }) as Promise<
+      Team[]
+    >,
 );

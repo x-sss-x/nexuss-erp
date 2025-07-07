@@ -29,6 +29,7 @@
     "@trpc/client": "catalog:",
     "@trpc/server": "catalog:",
     "@trpc/tanstack-react-query": "catalog:",
+    "better-auth": "catalog:",
     "class-variance-authority": "^0.7.1",
     "date-fns": "^4.1.0",
     "lodash": "^4.17.21",
