@@ -36,7 +36,7 @@ export default async function Page({
     <React.Fragment>
       <Container className="px-8 md:px-10">
         <div className="inline-flex w-full items-center justify-between">
-          <h1 className="text-2xl font-medium">Faculty Members</h1>
+          <h1 className="text-2xl font-medium">Members</h1>
 
           <InviteFacultyButton />
         </div>

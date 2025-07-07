@@ -20,8 +20,8 @@ const items = [
     exact: true,
   },
   {
-    title: "Faculty",
-    url: "/faculty",
+    title: "Members",
+    url: "/members",
     icon: IconUsers,
   },
 ];

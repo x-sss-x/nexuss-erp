@@ -54,6 +54,11 @@ export function initAuth(options: {
               .where(eq(user.id, data.user.id));
           },
         },
+        teams: {
+          enabled: true,
+          maximumTeams: 5,
+          allowRemovingAllTeams: false,
+        },
         ac,
         roles: {
           owner,

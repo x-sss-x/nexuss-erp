@@ -7,6 +7,9 @@ export const authClient = createAuthClient({
   plugins: [
     organizationClient({
       ac,
+      teams: {
+        enabled: true,
+      },
       roles: {
         owner,
         staff,

@@ -8,7 +8,7 @@ import { Tabs, TabsList, TabsTrigger } from "@nxss/ui/tabs";
 export function TabsClient() {
   const pathname = usePathname();
   const params = useParams<{ orgSlug: string }>();
-  const baseUrl = `/${params.orgSlug}/faculty`;
+  const baseUrl = `/${params.orgSlug}/members`;
 
   return (
     <Tabs value={pathname == baseUrl ? "members" : "invitations"}>
