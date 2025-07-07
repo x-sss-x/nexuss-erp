@@ -2,7 +2,7 @@
 
 import type { ColumnDef } from "@tanstack/react-table";
 import type { Invitation } from "better-auth/plugins/organization";
-import { IconDots, IconUserFilled } from "@tabler/icons-react";
+import { IconDots, IconUser } from "@tabler/icons-react";
 import { formatDistanceToNowStrict } from "date-fns";
 
 import { Avatar, AvatarFallback } from "@nxss/ui/avatar";
@@ -19,7 +19,7 @@ export const columns: ColumnDef<Invitation>[] = [
         <div className="inline-flex w-[800px] items-center gap-2.5">
           <Avatar className="size-8">
             <AvatarFallback>
-              <IconUserFilled />
+              <IconUser className="text-muted-foreground" />
             </AvatarFallback>
           </Avatar>
           <p>{original.email}</p>

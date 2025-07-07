@@ -18,10 +18,7 @@ export const branchRouter = {
 
   getAll: organizationProcedure.query(({ ctx }) =>
     ctx.db.query.branch.findMany({
-      where: and(
-        eq(branch.organizationId, ctx.activeOrganizationId),
-        eq(branch.userId, ctx.user.id),
-      ),
+      where: and(eq(branch.organizationId, ctx.activeOrganizationId)),
     }),
   ),
 };

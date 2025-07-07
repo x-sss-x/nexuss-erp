@@ -60,9 +60,8 @@ export function initAuth(options: {
           staff,
         },
         async sendInvitationEmail(data) {
-          const singleUser = await db.query.user.findFirst({
-            where: eq(user.id, data.id),
-          });
+          const inviteLink = `${options.baseUrl}/accept-invitation/${data.id}`;
+
           /** Send email to user using email provider */
           await resend.emails.send({
             from: "NexussERP <resend@nexusserp.com>",
@@ -70,8 +69,8 @@ export function initAuth(options: {
             subject: `You've been invited to join ${data.organization.name} 🎉`,
             react: (
               <OrganizationInvite
-                inviteLink={data.invitation.inviterId}
-                inviteeName={singleUser?.name}
+                inviteLink={inviteLink}
+                inviteeName={data.invitation.email}
                 organizationName={data.organization.name}
                 inviterName={data.inviter.user.name}
               />

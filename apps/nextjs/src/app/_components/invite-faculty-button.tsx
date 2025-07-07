@@ -83,6 +83,7 @@ export function InviteFacultyButton() {
         }),
     );
 
+    form.reset();
     setOpen(false);
   }
 

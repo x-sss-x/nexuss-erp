@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -47,12 +47,14 @@ export function SignIn() {
     },
   });
   const router = useRouter();
+  const redirectUrl = useSearchParams().get("redirect_url");
 
   async function onSubmit(values: z.infer<typeof signInSchema>) {
     await signIn.email(values, {
       onSuccess: () => {
         router.refresh();
       },
+      redirect: "follow",
       onError(context) {
         toast.error(context.error.message);
       },
@@ -81,7 +83,7 @@ export function SignIn() {
               await signIn.social(
                 {
                   provider: "google",
-                  callbackURL: "/",
+                  callbackURL: redirectUrl ?? "/",
                 },
                 {
                   onRequest: () => {
@@ -155,7 +157,7 @@ export function SignIn() {
                       <FormLabel>Password</FormLabel>
                       <Link
                         href="#"
-                        className="text-link ml-auto inline-block text-sm hover:opacity-80"
+                        className="ml-auto inline-block text-sm text-link hover:opacity-80"
                       >
                         Forgot your password?
                       </Link>
@@ -192,7 +194,7 @@ export function SignIn() {
           <p className="text-center text-sm">New to NexussERP?</p>
           <Link
             href={"/sign-up"}
-            className="text-link text-sm font-medium hover:opacity-80"
+            className="text-sm font-medium text-link hover:opacity-80"
           >
             Create an Account
           </Link>
