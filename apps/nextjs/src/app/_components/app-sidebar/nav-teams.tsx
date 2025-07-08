@@ -9,6 +9,7 @@ import {
   IconTriangleFilled,
   IconUsers,
 } from "@tabler/icons-react";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 import {
   Collapsible,
@@ -28,7 +29,8 @@ import {
 } from "@nxss/ui/sidebar";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@nxss/ui/tooltip";
 
-import type { listOrganizationsTeams } from "~/auth/server";
+import type { IconPickerIcon } from "../icon-picker";
+import { useTRPC } from "~/trpc/react";
 import { CreateTeamDialog } from "../create-team-dialog";
 import { TablerReactIcon } from "../icon-picker";
 
@@ -50,13 +52,13 @@ const items = [
   },
 ];
 
-export function NavTeams({
-  teams,
-}: {
-  teams: Awaited<ReturnType<typeof listOrganizationsTeams>>;
-}) {
+export function NavTeams() {
   const { orgSlug } = useParams<{ orgSlug: string }>();
   const pathname = usePathname();
+  const trpc = useTRPC();
+  const teams = useSuspenseQuery(
+    trpc.organization.listOrganizationTeams.queryOptions(),
+  );
 
   return (
     <SidebarGroup>
@@ -74,7 +76,7 @@ export function NavTeams({
         <TooltipContent side="right">Create Team</TooltipContent>
       </Tooltip>
       <SidebarMenu>
-        {teams.map((t) => {
+        {teams.data.map((t) => {
           const branchUrl = `/${orgSlug}/teams/${t.id}`;
           const isActive = pathname == branchUrl;
 
@@ -88,7 +90,7 @@ export function NavTeams({
                 >
                   <Link href={branchUrl}>
                     <TablerReactIcon
-                      name={"IconHash"}
+                      name={t.icon as IconPickerIcon}
                       isActive
                       className="size-5 [&_svg]:size-3.5"
                     />

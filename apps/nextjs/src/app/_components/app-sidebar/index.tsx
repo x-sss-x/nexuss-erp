@@ -10,8 +10,8 @@ import {
   SidebarMenuItem,
 } from "@nxss/ui/sidebar";
 
-import { getSession, listOrganizationsTeams } from "~/auth/server";
-import { HydrateClient } from "~/trpc/server";
+import { getSession } from "~/auth/server";
+import { HydrateClient, prefetch, trpc } from "~/trpc/server";
 import { NavMain } from "./nav-main";
 import { NavTeams } from "./nav-teams";
 import { NavUser } from "./nav-user";
@@ -23,7 +23,7 @@ export async function AppSidebar({
 
   if (!session) return null;
 
-  const teams = await listOrganizationsTeams();
+  prefetch(trpc.organization.listOrganizationTeams.queryOptions());
 
   return (
     <HydrateClient>
@@ -53,7 +53,7 @@ export async function AppSidebar({
         </SidebarHeader>
         <SidebarContent>
           <NavMain />
-          <NavTeams teams={teams} />
+          <NavTeams />
         </SidebarContent>
         <SidebarFooter>
           <NavUser user={session.user} />

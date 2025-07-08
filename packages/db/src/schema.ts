@@ -1,7 +1,9 @@
 import { sql } from "drizzle-orm";
-import { pgTable } from "drizzle-orm/pg-core";
+import { pgEnum, pgTable } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
+
+import { team } from "./auth-schema";
 
 export * from "./auth-schema";
 
@@ -24,6 +26,31 @@ export const CreatePostSchema = createInsertSchema(Post, {
   updatedAt: true,
 });
 
-export const Semester = pgTable("semester", (t) => ({
+export const currentSemesterTypeEnum = pgEnum("current_semester_type_enum", [
+  "odd",
+  "even",
+]);
+
+export const teamInfo = pgTable("team_info", (t) => ({
   id: t.uuid().primaryKey().defaultRandom(),
+  teamId: t
+    .text()
+    .references(() => team.id, { onDelete: "cascade", onUpdate: "cascade" })
+    .notNull(),
+  icon: t.varchar({ length: 256 }).default("IconCircleFilled"),
+  currentSemesterType: currentSemesterTypeEnum().notNull(),
+  numberOfsemesters: t.integer().notNull(),
+  createdAt: t.timestamp().defaultNow().notNull(),
+  updatedAt: t
+    .timestamp({ mode: "date", withTimezone: true })
+    .$onUpdateFn(() => sql`now()`),
 }));
+
+export const CreateTeamInfoSchema = createInsertSchema(teamInfo, {
+  icon: z.string().min(1),
+}).omit({
+  id: true,
+  teamId: true,
+  createdAt: true,
+  updatedAt: true,
+});
