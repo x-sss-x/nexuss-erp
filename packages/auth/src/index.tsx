@@ -43,6 +43,9 @@ export function initAuth(options: {
         },
       },
     },
+    session: {
+      disableSessionRefresh: true,
+    },
     plugins: [
       organization({
         organizationCreation: {
