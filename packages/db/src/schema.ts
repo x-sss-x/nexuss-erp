@@ -54,3 +54,22 @@ export const CreateTeamInfoSchema = createInsertSchema(teamInfo, {
   createdAt: true,
   updatedAt: true,
 });
+
+export const subject = pgTable("subject", (t) => ({
+  id: t.uuid().primaryKey().defaultRandom(),
+  name: t.text().notNull(),
+  color: t.text().notNull(),
+  semester: t.integer().notNull(),
+  createdAt: t.timestamp().defaultNow().notNull(),
+  updatedAt: t
+    .timestamp({ mode: "date", withTimezone: true })
+    .$onUpdateFn(() => sql`now()`),
+}));
+
+export const CreateSubjectSchema = createInsertSchema(subject, {
+  color: z.string().min(1),
+}).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
