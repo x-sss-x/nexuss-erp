@@ -88,7 +88,7 @@ export function NavTeams({
                 >
                   <Link href={branchUrl}>
                     <TablerReactIcon
-                      name={"IconCircleFilled"}
+                      name={"IconHash"}
                       isActive
                       className="size-5 [&_svg]:size-3.5"
                     />
