@@ -211,7 +211,7 @@ export function SignUp() {
           <p className="text-center text-sm">Already have an account?</p>
           <Link
             href={"/sign-in"}
-            className="text-link text-sm font-medium hover:opacity-80"
+            className="text-sm font-medium text-link hover:opacity-80"
           >
             Sign In
           </Link>

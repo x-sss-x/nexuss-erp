@@ -29,7 +29,7 @@ export function initAuth(options: {
     secret: options.secret,
     emailAndPassword: {
       enabled: true,
-      async sendResetPassword(data, request) {
+      async sendResetPassword() {
         // email logic
       },
     },

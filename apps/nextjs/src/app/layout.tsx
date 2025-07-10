@@ -1,14 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Geist_Mono,
-  Inter,
-  Nunito_Sans,
-  Outfit,
-  Public_Sans,
-  Roboto,
-  Roboto_Mono,
-  Urbanist,
-} from "next/font/google";
+import { Nunito_Sans, Roboto_Mono } from "next/font/google";
 
 import { cn } from "@nxss/ui";
 import { ThemeProvider, ThemeToggle } from "@nxss/ui/theme";

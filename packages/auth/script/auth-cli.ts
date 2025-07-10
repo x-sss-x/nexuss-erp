@@ -24,4 +24,5 @@ export const auth = initAuth({
   secret: "secret",
   googleClientId: "1234567890",
   googleClientSecret: "1234567890",
+  resendApiKey: "1234567890",
 });

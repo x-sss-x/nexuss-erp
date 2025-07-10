@@ -10,7 +10,6 @@ import { Button } from "@nxss/ui/button";
 import {
   Dialog,
   DialogBody,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
